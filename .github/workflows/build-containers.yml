@@ -1,26 +1,24 @@
-name: Build macOS
 on:
-  pull_request:
-  workflow_dispatch:
-  
-jobs:      
-  build:
-    env:
-      VERBOSE: 1
-    runs-on: macOS-latest # OS
-    steps:    
-    - uses: actions/checkout@v2 # pull repository
-    
-    #- name: docker
-    - uses: docker-practice/actions-setup-docker@master  
+  push
+
+name: ci
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: docker-practice/actions-setup-docker@master
     - run: |
         set -x
 
         docker version
 
-        docker run --rm hello-world 
+        docker run --rm hello-world
         
-    - name: Update brew packages
-      run: |
-        brew update
-
+        
+        
+        
+        
+        
+        
+       
