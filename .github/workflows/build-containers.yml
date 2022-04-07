@@ -3,9 +3,14 @@ on:
   pull_request:
   workflow_dispatch:
   
-jobs:  
-  build-java: # job name     
-    runs-on: macOS-latest # OS         
+jobs:      
+  build:
+    env:
+      VERBOSE: 1
+    runs-on: macOS-latest # OS
     steps:    
-    - uses: actions/checkout@v2 # pull repository 
-    
+    - uses: actions/checkout@v2 # pull repository
+
+    - name: Update brew packages
+      run: |
+        brew update
