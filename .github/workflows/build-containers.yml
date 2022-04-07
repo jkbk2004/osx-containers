@@ -14,3 +14,5 @@ jobs:
     - name: Update brew packages
       run: |
         brew update
+    - name: Check Docker Version
+      run: docker --version
