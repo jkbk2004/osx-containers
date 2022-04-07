@@ -1,0 +1,29 @@
+name: Build macOS
+on:
+  pull_request:
+  workflow_dispatch:
+  
+jobs:  
+  build-java: # job name     
+    runs-on: macOS-latest # OS         
+    steps:    
+    - uses: actions/checkout@v2 # pull repository 
+    
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jitterbit/get-changed-files@v1
+        id: abc
+        with:
+          format: space-delimited
+          token: ${{ secrets.GITHUB_TOKEN }}        
+          
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin    
+
+      - name: docker build tag noaaepic/ubuntu20.04-hpc-stack
+        run: | 
+         echo ${{ steps.abc.outputs.all }}
+         echo "docker build tag noaaepic/ubuntu20.04-hpc-stack"
+
+    
+    
