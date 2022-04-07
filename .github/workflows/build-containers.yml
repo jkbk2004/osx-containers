@@ -1,23 +1,13 @@
-on:
-  push
-
-name: ci
-
-jobs:
-  ci:
-    runs-on: macOS
-    steps:
-    - run: |
-        set -x
-
-        brew install --cask docker
-
-        docker run --rm hello-world
-        
-        
-        
-        
-        
-        
-        
-       
+name: Java CI with Gradle On MacOS 
+on: # which events trigger the pipeline   
+  push: # pushing the master branch    
+    branches: [ main ]  
+  pull_request: # pull request from the master branch    
+    branches: [ main ] 
+jobs:  
+  build-java: # job name     
+    runs-on: macOS-latest # OS         
+    steps:    
+    - uses: docker-practice/actions-setup-docker@master  
+    - name: kim
+      run: set -x     
