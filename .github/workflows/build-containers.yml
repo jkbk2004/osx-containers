@@ -7,11 +7,10 @@ jobs:
   ci:
     runs-on: macos-latest
     steps:
-    - uses: docker-practice/actions-setup-docker@master
     - run: |
         set -x
 
-        docker version
+        brew install --cask docker
 
         docker run --rm hello-world
         
