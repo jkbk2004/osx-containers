@@ -11,9 +11,8 @@ jobs:
     steps:    
     - uses: actions/checkout@v2 # pull repository
     
-    - name: docke-macosx
-      uses: docker-practice/actions-setup-docker@master
-        #if: ${{ matrix.os == 'macos-latest' }}
+    #- name: docker
+    - uses: docker-practice/actions-setup-docker@master
         
     - name: Update brew packages
       run: |
