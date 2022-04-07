@@ -9,5 +9,7 @@ jobs:
     runs-on: macOS-latest # OS         
     steps:    
     - uses: docker-practice/actions-setup-docker@master  
-    - name: kim
-      run: set -x     
+    - name: docker load check
+      run: set -x  
+    - name: docker version
+      run: docker version
