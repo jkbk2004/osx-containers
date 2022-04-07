@@ -12,11 +12,15 @@ jobs:
     - uses: actions/checkout@v2 # pull repository
     
     #- name: docker
-    - uses: docker-practice/actions-setup-docker@master    
-    - run: set -x     
+    - uses: docker-practice/actions-setup-docker@master  
+    - run: |
+        set -x
+
+        docker version
+
+        docker run --rm hello-world 
         
     - name: Update brew packages
       run: |
         brew update
-    - name: Check Docker Version
-      run: docker --version
+
