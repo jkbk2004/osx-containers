@@ -5,7 +5,7 @@ name: ci
 
 jobs:
   ci:
-    runs-on: macos-latest
+    runs-on: macOS
     steps:
     - run: |
         set -x
