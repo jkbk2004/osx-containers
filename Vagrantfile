@@ -2,6 +2,7 @@ Vagrant.configure("2") do |config|
     config.vm.box = "generic/ubuntu2010"
 
     config.vm.define 'ubuntu'
+    config.vm.provision "shell", inline: "sudo mkdir -p /vagrant/app"
     
     config.vm.provision "docker" do |d|
         d.build_image "/vagrant/app"
@@ -14,7 +15,7 @@ Vagrant.configure("2") do |config|
     # the path on the host to the actual folder. The second argument is
     # the path on the guest to mount the folder. And the optional third
     # argument is a set of non-required options.
-    config.vm.synced_folder ".", "/home/vagrant/vagrant_data",
+    config.vm.synced_folder "/vagrant", "/home/vagrant/vagrant_data",
        mount_options: ["dmode=775,fmode=777"]
     
     # provision with a basic user environment
