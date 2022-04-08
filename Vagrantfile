@@ -2,10 +2,10 @@ Vagrant.configure("2") do |config|
     config.vm.box = "generic/ubuntu2010"
 
     config.vm.define 'ubuntu'
-    config.vm.provision "shell", inline: "sudo mkdir -p /vagrant/app"
+    config.vm.provision "shell", inline: "sudo mkdir -p ./app"
     
     config.vm.provision "docker" do |d|
-        d.build_image "/vagrant/app"
+        d.build_image "./app"
     end
     
     # Prevent SharedFoldersEnableSymlinksCreate errors
