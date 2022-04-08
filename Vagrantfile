@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
     config.vm.define 'ubuntu'
 
     # Prevent SharedFoldersEnableSymlinksCreate errors
-    config.vm.synced_folder ".", "/vagrant", disabled: true
+    #config.vm.synced_folder ".", "/vagrant", disabled: true
     
     # Share an additional folder to the guest VM. The first argument is
     # the path on the host to the actual folder. The second argument is
