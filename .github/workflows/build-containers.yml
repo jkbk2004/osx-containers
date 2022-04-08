@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Run vagrant up
-      run: vagrant init
+      run: vagrant init hashicorp/precise32
       
     - name: Init vagrant
       run: vagrant up
