@@ -1,8 +1,12 @@
 Vagrant.configure("2") do |config|
-    config.vm.box = "generic/ubuntu1810"
+    config.vm.box = "generic/ubuntu1910"
 
     config.vm.define 'ubuntu'
-
+    
+    config.vm.provision "docker" do |d|
+        d.build_image "/vagrant/app"
+    end
+    
     # Prevent SharedFoldersEnableSymlinksCreate errors
     #config.vm.synced_folder ".", "/vagrant", disabled: true
     
@@ -25,7 +29,7 @@ Vagrant.configure("2") do |config|
     EOF
     
     # provision the VM with docker
-    config.vm.provision "docker"    
+    #config.vm.provision "docker"    
     
     # Enable X-Forwarding
     config.ssh.forward_agent = true
