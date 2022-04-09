@@ -24,4 +24,7 @@ jobs:
 
     - name: ssh into box after boot
       run: vagrant ssh -c "echo 'hello world!'"
+      
+    - name: echo ls
+      run: vagrant echo $(ls)
 
