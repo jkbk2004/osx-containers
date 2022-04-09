@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
     #config.vm.provision "shell", inline: "sudo mkdir -p ./vagrant"
     
     config.vm.provision "docker" do |d|
-        d.build_image "./app"
+        d.build_image "./Dicker/Dockerfile"
     end
     
     # Prevent SharedFoldersEnableSymlinksCreate errors
