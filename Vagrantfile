@@ -1,43 +1,34 @@
-Vagrant.configure("2") do |config|
-    #config.vm.box = "generic/ubuntu1804"
-    
-    # Vagrant uses vagrant user by default. Docker uses root. Use root, it is
-    # a development environment anyway.
-    config.ssh.username = "root"
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 
-    config.vm.provider "docker" do |docker|
-      # The name of the image to use
-      docker.image = "nineseconds/docker-vagrant"
+# Specify Vagrant version and Vagrant API version
+Vagrant.require_version ">= 1.6.0"
+VAGRANTFILE_API_VERSION = "2"
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'docker'
 
-      # vagrant docker images have SSH so why not to use it
-      docker.has_ssh = true
+# Create and configure the Docker container(s)
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-      # Yes, containers are long running.
-      docker.remains_running = true
-    end
-        
-    # Share an additional folder to the guest VM. The first argument is
-    # the path on the host to the actual folder. The second argument is
-    # the path on the guest to mount the folder. And the optional third
-    # argument is a set of non-required options.
-    config.vm.synced_folder ".", "/home/vagrant/vagrant_data",
-       mount_options: ["dmode=775,fmode=777"]
-    
-    # provision with a basic user environment
-    config.vm.provision "environment", type: "shell", privileged: true,
-                         inline: <<-EOF
-        set -e
-        export DEBIAN_FRONTEND=noninteractive
-        apt-get update
-        apt-get install -y build-essential python3 gcc curl python3-pip
-        apt-get install -y autoconf pkg-config libtool autoconf-archive
-        apt-get update
-    EOF
-    
-    # provision the VM with docker
-    #config.vm.provision "docker"    
-    
-    # Enable X-Forwarding
-    config.ssh.forward_agent = true
-    config.ssh.forward_x11 = true
+  # Disable synced folders for the Docker container
+  # (prevents an NFS error on "vagrant up")
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  # Configure the Docker provider for Vagrant
+  config.vm.provider "docker" do |docker|
+
+    # Define the location of the Vagrantfile for the host VM
+    # Comment out this line to use default host VM that is
+    # based on boot2docker
+    docker.vagrant_vagrantfile = "host/Vagrantfile"
+
+    # Specify the Docker image to use
+    docker.image = "nginx"
+
+    # Specify port mappings
+    # If omitted, no ports are mapped!
+    docker.ports = ['80:80', '443:443']
+
+    # Specify a friendly name for the Docker container
+    docker.name = 'nginx-container'
+  end
 end
