@@ -5,7 +5,11 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "sudo mkdir -p ./app"
     #config.vm.provision "shell", inline: "sudo mkdir -p ./vagrant"
     
-    config.vm.provision "docker" 
+    config.vm.provider "docker" do |d|
+        d.image = "nginx:latest"
+        d.ports = [“8080:80”]
+        d.name = “nginx-container”
+    end
     
     # Prevent SharedFoldersEnableSymlinksCreate errors
     #config.vm.synced_folder ".", "/vagrant", disabled: true
