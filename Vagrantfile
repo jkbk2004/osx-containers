@@ -5,9 +5,7 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell", inline: "sudo mkdir -p ./app"
     #config.vm.provision "shell", inline: "sudo mkdir -p ./vagrant"
     
-    config.vm.provision "docker" do |d|
-        d.pull_images "docker://noaaepic/ubuntu20.04-gnu9.3"
-    end
+    config.vm.provision "docker" 
     
     # Prevent SharedFoldersEnableSymlinksCreate errors
     #config.vm.synced_folder ".", "/vagrant", disabled: true
