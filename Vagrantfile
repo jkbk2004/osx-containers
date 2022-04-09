@@ -1,19 +1,21 @@
 Vagrant.configure("2") do |config|
     config.vm.box = "generic/ubuntu1804"
+    
+    # Vagrant uses vagrant user by default. Docker uses root. Use root, it is
+    # a development environment anyway.
+    config.ssh.username = "root"
 
-    config.vm.define 'ubuntu'
-    config.vm.provision "shell", inline: "sudo mkdir -p ./app"
-    #config.vm.provision "shell", inline: "sudo mkdir -p ./vagrant"
-    
-    config.vm.provider "docker" do |d|
-      d.image = "nginx:latest"
-      d.ports = ["080:80”]
-      d.name = “nginx-container”
+    config.vm.provider "docker" do |docker|
+      # The name of the image to use
+      docker.image = "nineseconds/docker-vagrant"
+
+      # vagrant docker images have SSH so why not to use it
+      docker.has_ssh = true
+
+      # Yes, containers are long running.
+      docker.remains_running = true
     end
-    
-    # Prevent SharedFoldersEnableSymlinksCreate errors
-    #config.vm.synced_folder ".", "/vagrant", disabled: true
-    
+        
     # Share an additional folder to the guest VM. The first argument is
     # the path on the host to the actual folder. The second argument is
     # the path on the guest to mount the folder. And the optional third
